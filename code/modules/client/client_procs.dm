@@ -238,6 +238,12 @@ GLOBAL_LIST_INIT(unrecommended_builds, list(
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
+	// BANDASTATION ADDITION - A portrait dialog permits up to 10 MiB.
+	if(character_portrait_upload_dialog)
+		if(filelength > 10 * 1024 * 1024)
+			to_chat(src, span_warning("Портрет должен быть не больше 10 МиБ."))
+			return FALSE
+		return TRUE
 	var/client_max_file_size = CONFIG_GET(number/upload_limit)
 	if (holder)
 		var/admin_max_file_size = CONFIG_GET(number/upload_limit_admin)

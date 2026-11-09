@@ -10,30 +10,49 @@ type Data = {
   obscured: BooleanLike;
   assigned_map: string;
   flavor_text: string;
+  portrait_url?: string | null;
 };
 
 export const ExaminePanel = (props) => {
-  const { act, data } = useBackend<Data>();
-  const { character_name, obscured, assigned_map, flavor_text } = data;
+  const { data } = useBackend<Data>();
+  const { character_name, obscured, assigned_map, flavor_text, portrait_url } =
+    data;
   return (
     <Window title="Подробное описание" width={600} height={350} theme="ntos">
       <Window.Content>
         <Stack fill>
-          <Stack.Item>
-            <Section fill title="Превью персонажа">
-              {!obscured && (
-                <CharacterPreview id={assigned_map} height="100%" />
-              )}
+          <Stack.Item basis="40%" style={{ minWidth: 0 }}>
+            <Section
+              fill
+              title={portrait_url ? 'Портрет персонажа' : 'Превью персонажа'}
+            >
+              {!obscured &&
+                (portrait_url ? (
+                  <Box
+                    height="100%"
+                    style={{ position: 'relative', overflow: 'hidden' }}
+                  >
+                    <img
+                      alt="Портрет персонажа"
+                      src={portrait_url}
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <CharacterPreview id={assigned_map} height="100%" />
+                ))}
             </Section>
           </Stack.Item>
           <Stack.Item grow>
             <Stack fill vertical>
               <Stack.Item grow>
-                <Section
-                  scrollable
-                  fill
-                  title={`${character_name}, описание:`}
-                >
+                <Section scrollable fill title={`${character_name}, описание:`}>
                   <Box
                     style={{
                       whiteSpace: 'pre-wrap',

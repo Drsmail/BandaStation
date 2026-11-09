@@ -2,17 +2,24 @@ Any time you make a change to the schema files, remember to increment the databa
 
 Make sure to also update `DB_MAJOR_VERSION_220` and `DB_MINOR_VERSION_220`, which can be found in `code/modular_bandastation/_defines220/code/defines/subsystems.dm`.
 
-The latest database version is 1.3; The query to update the schema revision table is:
+The latest database version is 1.4; The query to update the schema revision table is:
 
 ```sql
-INSERT INTO `schema_revision_220` (`major`, `minor`) VALUES (1, 3);
+INSERT INTO `schema_revision_220` (`major`, `minor`) VALUES (1, 4);
 ```
 
 or
 
 ```sql
-INSERT INTO `SS13_schema_revision_220` (`major`, `minor`) VALUES (1, 3);
+INSERT INTO `SS13_schema_revision_220` (`major`, `minor`) VALUES (1, 4);
 ```
+
+---
+
+Version 1.4, 9 November 2026
+Created the tables: character_portraits and character_portrait_selections.
+
+For an existing version 1.3 database, apply `updates/1.3-1.4.sql` once. It creates the portrait metadata and per-character-slot selection tables and records schema revision 1.4. Image files are stored separately in the game server data directory.
 
 ---
 

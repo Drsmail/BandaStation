@@ -1,0 +1,5 @@
+#include "_character_portraits.dm"
+#include "code/portrait_upload.dm"
+#include "code/portrait_database.dm"
+#include "code/portrait_panel.dm"
+#include "code/portrait_examine.dm"

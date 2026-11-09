@@ -37,6 +37,8 @@ import { AlternativeNames, NameInput } from './names';
 
 type CharacterControlsProps = {
   handleRotate: () => void;
+  handleUploadPortrait: () => void;
+  portraitUploadDisabled: boolean;
   handleOpenSpecies: () => void;
   handleOpenAugmentations: () => void; // BANDASTATION ADD: Augmentations
   gender: Gender;
@@ -69,6 +71,14 @@ function CharacterControls(props: CharacterControlsProps) {
         tooltip="Модификации тела"
         tooltipPosition="top"
         onClick={() => props.handleOpenAugmentations()}
+      />
+      {/* BANDASTATION ADDITION - Character portraits */}
+      <Button
+        icon="file-upload"
+        tooltip="Портреты персонажа"
+        tooltipPosition="top"
+        disabled={props.portraitUploadDisabled}
+        onClick={props.handleUploadPortrait}
       />
       <Button
         color="red"
@@ -416,6 +426,10 @@ export function MainPage(props: MainPageProps) {
       <Stack fill vertical>
         <Stack.Item>
           <CharacterControls
+            handleUploadPortrait={() => act('upload_character_portrait')}
+            portraitUploadDisabled={
+              !data.portrait_upload_available || !!data.portrait_uploading
+            }
             gender={data.character_preferences.misc.gender}
             handleOpenSpecies={props.openSpecies}
             handleOpenAugmentations={() => setAugmentationInputOpen(true)} // BANDASTATION ADDITION - Feat: Augmentations
@@ -431,6 +445,11 @@ export function MainPage(props: MainPageProps) {
             handleDeleteCharacter={() => setDeleteCharacterPopupOpen(true)}
           />
         </Stack.Item>
+        {!!data.portrait_upload_status && (
+          <Stack.Item>
+            <Box fontSize="0.9em">{data.portrait_upload_status}</Box>
+          </Stack.Item>
+        )}
         <Stack.Item grow style={{ alignSelf: 'center' }}>
           <CharacterPreview height="100%" id={data.character_preview_view} />
         </Stack.Item>

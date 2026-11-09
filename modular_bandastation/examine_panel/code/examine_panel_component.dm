@@ -128,6 +128,8 @@
 		var/mob/living/carbon/human/holder_human = parent
 		obscured = (holder_human.wear_mask && (holder_human.wear_mask.flags_inv & HIDEFACE)) || (holder_human.head && (holder_human.head.flags_inv & HIDEFACE))
 		tgui_flavor_text = obscured ? "Скрывает лицо" : flavor_text
+		// BANDASTATION ADDITION - The approved portrait replaces the dynamic preview.
+		data["portrait_url"] = holder_human.character_portrait_url(user)
 
 	var/name = obscured ? "Неизвестный" : parent
 

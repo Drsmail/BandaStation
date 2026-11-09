@@ -174,6 +174,9 @@ export type CharacterPreferencesData = {
 };
 
 export type PreferencesMenuData = {
+  portrait_upload_available: BooleanLike;
+  portrait_uploading: BooleanLike;
+  portrait_upload_status: string;
   character_preview_view: string;
   character_profiles: (string | null)[];
 
